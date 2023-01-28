@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "useUnknownInCatchVariables": true,
+    "noImplicitOverride": true
+  },
+  "fmt": {
+    "files": {
+      "exclude": [
+        ".git"
+      ]
+    }
+  },
+  "lint": {
+    "files": {
+      "exclude": [
+        ".git"
+      ]
+    }
+  },
+  "tasks": {
+    "lint": "deno fmt && deno lint",
+    "comment-parser": "deno run --allow-read --allow-write comment_parser/mod.ts"
+  }
+}
