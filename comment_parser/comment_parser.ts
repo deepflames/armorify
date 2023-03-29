@@ -31,7 +31,7 @@ function main() {
       break;
   }
 
-  gherkinComments(type);
+  gherkinComments(type).then(() => logger.info('All done.'));
 }
 
 async function gherkinComments(this: any, type: ParserType): Promise<void> {
