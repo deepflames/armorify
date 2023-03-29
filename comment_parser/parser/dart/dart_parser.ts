@@ -6,7 +6,7 @@ import { walk } from "https://deno.land/std@0.174.0/fs/walk.ts";
 import { assert } from "https://deno.land/std@0.174.0/testing/asserts.ts";
 import { load } from "https://deno.land/x/js_yaml_port@3.14.0/js-yaml.js";
 import { encode } from "https://deno.land/x/msgpack@v1.2/mod.ts";
-import { parse } from "npm:comment-parser";
+import { parse } from "https://esm.sh/comment-parser";
 
 import { logger, openFile, writeFile } from "../../utils/utils.ts";
 import Template from "../../models/template.ts";

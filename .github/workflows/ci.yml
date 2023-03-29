@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deno:
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      matrix:
+        deno: [stable]
+        os: [macOS-latest]
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v3
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.x
+
+      - run: deno --version
+
+      - name: Lint
+        run: deno lint
+
+      - name: Typecheck "comment_parser"
+        run: deno check comment_parser/mod.ts
+
+      - name: Compile "Darwin x86_64"
+        run: deno compile --allow-read --allow-write --target x86_64-apple-darwin --output comment_parser_x86_64 comment_parser/mod.ts
+
+      - name: Compile "Darwin Arm64"
+        run: deno compile --allow-read --allow-write --target aarch64-apple-darwin --output comment_parser_a64 comment_parser
