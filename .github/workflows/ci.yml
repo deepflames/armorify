@@ -29,11 +29,19 @@ jobs:
       - name: Lint
         run: deno lint
 
-      - name: Typecheck "comment_parser"
+      - name: Typecheck -> "comment_parser"
         run: deno check comment_parser/mod.ts
 
-      - name: Compile "Darwin x86_64"
+      - name: Compile -> "comment_parser" -> "Darwin x86_64"
         run: deno compile --allow-read --allow-write --target x86_64-apple-darwin --output comment_parser_x86_64 comment_parser/mod.ts
 
-      - name: Compile "Darwin Arm64"
+      - name: Compile -> "comment_parser" -> "Darwin Arm64"
         run: deno compile --allow-read --allow-write --target aarch64-apple-darwin --output comment_parser_a64 comment_parser/mod.ts
+
+      - name: Release -> "comment_parser"
+        uses: softprops.action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            comment_parser_x86_64
+            comment_parser_a64
