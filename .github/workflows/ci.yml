@@ -12,8 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        deno: [stable]
-        os: [macOS-latest]
+        deno: [ stable ]
+        os: [ macOS-latest ]
 
     steps:
       - name: Setup repo
@@ -38,10 +38,16 @@ jobs:
       - name: Compile "comment_parser" "Darwin Arm64"
         run: deno compile --allow-read --allow-write --target aarch64-apple-darwin --output comment_parser_a64 comment_parser/mod.ts
 
-      - name: Release "comment_parser"
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Compress
+        uses: vimtor/action-zip@v1
         with:
-          files: |
-            comment_parser_x86_64
-            comment_parser_a64
+          files: comment_parser_x86_64 comment_parser_a64
+          dest: comment_parser.zip
+
+#      - name: Release "comment_parser"
+#        uses: softprops/action-gh-release@v1
+#        if: startsWith(github.ref, 'refs/tags/')
+#        with:
+#          files: |
+#            comment_parser_x86_64
+#            comment_parser_a64
